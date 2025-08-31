@@ -13,5 +13,7 @@
 
 # 5: Create Object class. Should call transformation functions
 
-# 6: Specify horizontal_fov and vertical_fov 
+# 6: Specify horizontal_fov and vertical_fov
+
+# 7: Create camera class.
 
