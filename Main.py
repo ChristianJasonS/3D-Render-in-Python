@@ -5,7 +5,6 @@ if __name__ == '__main__':
     window.display()
     # display(window)
 
-
 # 1: Create window for pygame.
     # window resolution, fps tracker, canvas set up
 
