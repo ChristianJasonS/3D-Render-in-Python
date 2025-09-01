@@ -1,4 +1,6 @@
 import pygame as pg
+from Object import *
+from Cube import *
 
 run = True
 
@@ -7,6 +9,11 @@ class Window:
         self.w_height = 800
         self.w_width = 800
         self.background_colour = (200, 200, 200)
+        self.create_object()
+
+    def create_object(self):
+        self.cube = Cube(self)
+        # draw cube in
 
     def display(self):
         screen = pg.display.set_mode((self.w_height, self.w_width))
