@@ -1,4 +1,9 @@
-# Itchy Nipples
+from Window import *
+
+if __name__ == '__main__':
+    window = Window()
+    window.display()
+    # display(window)
 
 
 # 1: Create window for pygame.
