@@ -1,7 +1,12 @@
 from Window import *
 
+height = 800
+width = 800
+resolution = (height, width)
+
+
 if __name__ == '__main__':
-    window = Window()
+    window = Window(height, resolution)
     window.display()
     # display(window)
 
