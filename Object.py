@@ -38,6 +38,14 @@ class Object:
         # 'matrix_a | matrix_b' functions as a mask
         vertices[matrix_a | matrix_b] = 0
 
+        # project normalized vertices to screen resolution
+        vertices = vertices @ self.render.projection.screen_matrix
+        # slice matrix to retrieve x,y coordinates on screen
+
+
+        self.vertices = vertices
+
+
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)
 

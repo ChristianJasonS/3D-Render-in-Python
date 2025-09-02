@@ -25,3 +25,11 @@ class Projection:
             [0, 0, m22, 1],
             [0, 0, m32, 0]
         ])
+
+        half_width, half_height = render.width/2, render.height/2
+        self.screen_matrix = np.array([
+            [half_width, 0, 0, 0],
+            [0, -half_height, 0, 0],
+            [0, 0, 1, 0],
+            [half_width, half_height, 0, 1]
+        ])
