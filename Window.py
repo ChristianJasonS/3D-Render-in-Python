@@ -2,6 +2,7 @@ import pygame as pg
 from Object import *
 from Cube import *
 from Camera import *
+from Projection import *
 
 run = True
 
@@ -11,6 +12,7 @@ class Window:
         self.w_width = resolution[1]
         self.background_colour = (200, 200, 200)
         self.create_object()
+        self.create_camera()
 
     def create_object(self):
         self.cube = Cube(self)
@@ -18,6 +20,9 @@ class Window:
 
     def create_camera(self, position):
         self.camera = Camera(self, position)
+
+    def create_projection(self):
+        self.projection = Projection(self)
 
     def display(self):
         screen = pg.display.set_mode((self.w_height, self.w_width))
