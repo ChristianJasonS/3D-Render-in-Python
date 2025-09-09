@@ -7,14 +7,14 @@ class Camera:
         self.render = render
 
         # camera position in world. position passed from main.py during init
-        self.position = np.array([*position], 1)
+        self.position = np.array([*position, 1])
         self.forward = np.array([0, 0, 1, 1])
         self.up = np.array([0, 1, 0, 1])
         self.right = np.array([1, 0, 0, 1])
 
         # camera fov. angle in radians.
-        self.h_fov = math.pi/2
-        self.v_fov = self.h_fov * (render.height / render.width)
+        self.h_fov = math.pi/3 # TODO:Originally pi/2
+        self.v_fov = self.h_fov * (self.render.w_height / self.render.w_width)
 
         # clipping planes
         self.near_plane = 0.1

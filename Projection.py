@@ -3,6 +3,7 @@ import numpy as np
 
 class Projection:
     def __init__(self, render):
+        self.render = render
         # retrieve near and far plane from camera
         self.near = render.camera.near_plane
         self.far = render.camera.far_plane
@@ -26,10 +27,10 @@ class Projection:
             [0, 0, m32, 0]
         ])
 
-        half_width, half_height = render.width/2, render.height/2
-        self.screen_matrix = np.array([
+        half_width, half_height = self.render.w_width//2, self.render.w_height//2
+        self.to_screen_matrix = np.array([
             [half_width, 0, 0, 0],
-            [0, -half_height, 0, 0],
+            [0, - half_height, 0, 0],
             [0, 0, 1, 0],
             [half_width, half_height, 0, 1]
         ])

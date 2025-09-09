@@ -6,6 +6,7 @@ class Object:
     def __init__(self, render):
         self.render = render
         self.vertices = None
+        self.faces = None
 
     def screen_project(self):
         """calculates the vertices matrix to project object to:
@@ -15,6 +16,7 @@ class Object:
         3b. replace vertices outside (-1, 1) with 0 to avoid rendering vertices
             beyond 'view'
         3c. project normalized vertices to screen based on screen resolution
+        4. Display each face of the object
         """
         # move object vertices to camera space.
         vertices = self.vertices @ self.render.camera.camera_matrix()
@@ -23,14 +25,18 @@ class Object:
         vertices = vertices @ self.render.projection.projection_matrix
 
         # normalize by dividing each row with its last column
+        # vertices /= vertices[:, -1].reshape(-1, 1)
+
+        # TODO: uncomment
         # retrieves the last column of each row
         w_column = vertices[:, -1]
-        # reshapes array into rows of one column
-        w_column.reshape(-1, 1)
-        # divide each row with its last column
+        # # reshapes array into rows of one column
+        w_column = w_column.reshape(-1, 1)
+        # # divide each row with its last column
         vertices = vertices / w_column
 
         # remove vertices outside (-1, 1)
+        # vertices[(vertices > 1) | (vertices < -1)] = 0
         # matrix_a & matrix_b contain a matrix of True False values.
         matrix_a = vertices > 1
         matrix_b = vertices < -1
@@ -39,12 +45,25 @@ class Object:
         vertices[matrix_a | matrix_b] = 0
 
         # project normalized vertices to screen resolution
-        vertices = vertices @ self.render.projection.screen_matrix
+        vertices = vertices @ self.render.projection.to_screen_matrix
         # slice matrix to retrieve x,y coordinates on screen
+        vertices = vertices[:, :2]
 
+        # Display faces
+        for faces in self.faces:  # faces is a 4x1 numpy array containing the
+            # index of each vertice coordinate
+            polygon = vertices[faces]
+            # draw each face (polygons)
+            # prevent vertices lying on the screen edge from being drawn
+            if not np.any((polygon == self.render.half_w_height) |
+                          (polygon == self.render.half_w_width)):
+                pg.draw.polygon(self.render.screen, pg.Color('orange'), polygon, 3)
 
-        self.vertices = vertices
-
+            # draw each vertex (dots)
+        for vertex in vertices:
+            if not np.any((vertex == self.render.half_w_height) |
+                          (vertex == self.render.half_w_width)):
+                pg.draw.circle(self.render.screen, pg.Color('white'), vertex, 6)
 
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)

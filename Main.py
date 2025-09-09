@@ -6,8 +6,8 @@ resolution = (height, width)
 
 
 if __name__ == '__main__':
-    window = Window(height, resolution)
-    window.display()
+    App = SoftwareRender()
+    App.run()
     # display(window)
 
 # 1: Create window for pygame.
